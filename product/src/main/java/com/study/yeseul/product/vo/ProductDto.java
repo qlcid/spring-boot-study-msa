@@ -2,6 +2,7 @@ package com.study.yeseul.product.vo;
 
 
 import com.study.yeseul.product.domain.Product;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,15 @@ public class ProductDto {
         private String name;
         private int price;
         private String vender;
+
+        public ProductCreateDto() {
+        }
+
+        public ProductCreateDto(String name, int price, String vender) {
+            this.name = name;
+            this.price = price;
+            this.vender = vender;
+        }
     }
 
     @Getter

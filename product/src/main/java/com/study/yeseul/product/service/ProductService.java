@@ -31,6 +31,10 @@ public class ProductService {
     }
 
     public Product createProduct(final ProductDto.ProductCreateDto createDto) {
+        if ("iPhone".equals(createDto.getName())) {
+            createDto.setPrice((int) (createDto.getPrice() * 0.5));
+        }
+
         return productRepository.save(Product.valueOf(createDto));
     }
 

@@ -3,6 +3,7 @@ package com.study.yeseul.product.domain;
 import com.study.yeseul.product.vo.ProductDto;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table
+@ToString
 public class Product {
 
     @Id
