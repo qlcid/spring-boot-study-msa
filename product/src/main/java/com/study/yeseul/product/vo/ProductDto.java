@@ -1,11 +1,11 @@
 package com.study.yeseul.product.vo;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.study.yeseul.product.domain.Product;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.time.ZonedDateTime;
 
 public class ProductDto {
 
@@ -56,6 +56,38 @@ public class ProductDto {
     @Setter
     public static class ProductUpdateDto {
         private int price;
+    }
+
+    @Getter
+    public static class ProductOrderReq {
+        private int count;
+        private String address;
+        private String couponId;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ProductOrderRes {
+        private long orderId;
+        private long id;
+        private String address;
+        @JsonFormat(pattern = "yyyy-MM-dd@HH:mm:ss.SSSZ")
+        private ZonedDateTime cratedAt;
+        private String userName;
+        private int count;
+
+        public static ProductOrderRes valueOf(String address, OrderDto.OrderDetailDto orderDetailDto) {
+            return ProductOrderRes.builder()
+                    .address(address)
+                    .id(orderDetailDto.getProductId())
+                    .orderId(orderDetailDto.getId())
+                    .cratedAt(orderDetailDto.getCratedAt())
+                    .userName(orderDetailDto.getUserName())
+                    .count(orderDetailDto.getCount())
+                    .build();
+        }
     }
 
 }

@@ -24,8 +24,9 @@ public class OrderService {
                 .collect(Collectors.toList());
     }
 
-    public Order createOrder(final OrderDto.OrderCreateDto createDto) {
-        return orderRepository.save(Order.valueOf(createDto));
+    public OrderDto.OrderCreateRes createOrder(final OrderDto.OrderCreateReq createDto) {
+        Order order = orderRepository.save(Order.valueOf(createDto));
+        return OrderDto.OrderCreateRes.valueOf(order);
     }
 
     public OrderDto.OrderDetailDto getOrder(long id) {

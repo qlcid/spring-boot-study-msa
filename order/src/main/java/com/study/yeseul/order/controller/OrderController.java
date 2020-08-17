@@ -1,6 +1,5 @@
 package com.study.yeseul.order.controller;
 
-import com.study.yeseul.order.domain.Order;
 import com.study.yeseul.order.service.OrderService;
 import com.study.yeseul.order.vo.OrderDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +22,9 @@ public class OrderController {
 
     // 주문 생성
     @PostMapping("")
-    public Order createOrder(@RequestBody final OrderDto.OrderCreateDto createDto) {
-        return orderService.createOrder(createDto);
+    public OrderDto.OrderCreateRes createOrder(@RequestBody final OrderDto.OrderCreateReq createDto) {
+        OrderDto.OrderCreateRes orderCreateRes = orderService.createOrder(createDto);
+        return orderCreateRes;
     }
 
     // 주문 상세 조회

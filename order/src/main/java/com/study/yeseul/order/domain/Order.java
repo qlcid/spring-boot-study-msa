@@ -34,11 +34,11 @@ public class Order {
     @Column(updatable = false)
     private int count;
 
-    public static Order valueOf(OrderDto.OrderCreateDto orderCreateDto) {
+    public static Order valueOf(OrderDto.OrderCreateReq orderCreateReq) {
         return new Order(
-                orderCreateDto.getProductId(),
-                orderCreateDto.getUserName(),
-                orderCreateDto.getCount()
+                orderCreateReq.getProductId(),
+                orderCreateReq.getUserName(),
+                orderCreateReq.getCount()
         );
     }
 

@@ -2,17 +2,41 @@ package com.study.yeseul.order.vo;
 
 import com.study.yeseul.order.domain.Order;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.ZonedDateTime;
 
 public class OrderDto {
 
     @Getter
-    public static class OrderCreateDto {
+    public static class OrderCreateReq {
         private long productId;
         private String userName;
         private int count;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class OrderCreateRes {
+        private long id;
+        private long productId;
+        private ZonedDateTime cratedAt;
+        private String userName;
+        private int count;
+
+        public static OrderCreateRes valueOf(Order order) {
+            return OrderCreateRes.builder()
+                    .id(order.getId())
+                    .productId(order.getProductId())
+                    .cratedAt(order.getCratedAt())
+                    .userName(order.getUserName())
+                    .count(order.getCount())
+                    .build();
+        }
     }
 
     @Getter
