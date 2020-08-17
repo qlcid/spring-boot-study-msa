@@ -60,7 +60,7 @@ public class ProductService {
         return ProductDto.ProductDetailDto.valueOf(product);
     }
 
-    @HystrixCommand(fallbackMethod = "createProductOrdersFallback")
+    @HystrixCommand(fallbackMethod = "createOrdersFallback")
     public ProductDto.ProductOrderRes createProductOrders(final long id, final ProductDto.ProductOrderReq productOrderReq) {
         // 1. 상품이 존재하는지 확인한다.
         ProductDto.ProductDetailDto productDetailDto = getProduct(id);
@@ -68,16 +68,27 @@ public class ProductService {
         // todo : 2. 사용자가 쿠폰을 가지고 있는지 확인한다.
 
         // 3. 주문 API를 호출한다.
-        OrderDto.OrderCreateReq orderCreateReq = new OrderDto.OrderCreateReq(id, "yeseul", productOrderReq.getCount());
-        ResponseEntity<OrderDto.OrderDetailDto> response = orderRestTemplate.postForEntity("/orders", orderCreateReq, OrderDto.OrderDetailDto.class);
+        OrderDto.OrderDetailDto orderDetailDto = createOrders(id, productOrderReq);
+        if (orderDetailDto == null) {
+            log.error(">>>>> Order API 호출 Error!!!");
+            return null;
+        }
 
-        ProductDto.ProductOrderRes productOrderRes = ProductDto.ProductOrderRes.valueOf(productOrderReq.getAddress(), response.getBody());
+        // 4. 결과값을 파싱 후 반환한다.
+        ProductDto.ProductOrderRes productOrderRes = ProductDto.ProductOrderRes.valueOf(productOrderReq.getAddress(), orderDetailDto);
         return productOrderRes;
     }
 
-    public ProductDto.ProductOrderRes createProductOrdersFallback(final long id, final ProductDto.ProductOrderReq productOrderReq, Throwable t) {
-        log.error("createProductOrdersFallback", t);
-        return null;
+
+    public OrderDto.OrderDetailDto createOrders(final long id, final ProductDto.ProductOrderReq productOrderReq) {
+        OrderDto.OrderCreateReq orderCreateReq = new OrderDto.OrderCreateReq(id, "yeseul", productOrderReq.getCount());
+        ResponseEntity<OrderDto.OrderDetailDto> response = orderRestTemplate.postForEntity("/orders", orderCreateReq, OrderDto.OrderDetailDto.class);
+
+        return response.getBody();
+    }
+
+    public ProductDto.ProductOrderRes createOrdersFallback(final long id, final ProductDto.ProductOrderReq productOrderReq, Throwable t) {
+        throw new RuntimeException("서킷브레이커 에러!!");
     }
 
 }

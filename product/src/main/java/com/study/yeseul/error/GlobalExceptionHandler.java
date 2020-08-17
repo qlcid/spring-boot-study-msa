@@ -13,6 +13,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @Slf4j
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(Exception.class)
+    protected ResponseEntity<ErrorResponse> Exception(final BusinessException e) {
+        log.error("Exception", e);
+        final ErrorResponse response = ErrorResponse.of(ErrorCode.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @ExceptionHandler(BusinessException.class)
     protected ResponseEntity<ErrorResponse> handleBusinessException(final BusinessException e) {
         log.error("handleEntityNotFoundException", e);

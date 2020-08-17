@@ -19,8 +19,8 @@ public class RestTemplateConfig {
     @Bean
     public RestTemplate orderRestTemplate() {
         return restTemplateBuilder.rootUri("http://127.0.0.1:2000")
-                .setConnectTimeout(Duration.ofMinutes(1))
-                .setReadTimeout(Duration.ofMinutes(5))
+//                .setConnectTimeout(Duration.ofMinutes(1))
+//                .setReadTimeout(Duration.ofMinutes(5))
                 .build();
     }
 

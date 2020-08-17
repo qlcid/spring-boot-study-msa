@@ -4,6 +4,7 @@ import com.study.yeseul.order.dao.OrderRepository;
 import com.study.yeseul.order.domain.Order;
 import com.study.yeseul.order.exception.OrderNotFoundException;
 import com.study.yeseul.order.vo.OrderDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class OrderService {
 
     @Autowired
@@ -25,6 +27,17 @@ public class OrderService {
     }
 
     public OrderDto.OrderCreateRes createOrder(final OrderDto.OrderCreateReq createDto) {
+
+        if (createDto.getCount() >= 10) {
+            log.warn(">>>>> 10개 이상이면 10초 걸림");
+            throw new RuntimeException("Just error!!!");
+//            try {
+//                Thread.sleep(10000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+        }
+
         Order order = orderRepository.save(Order.valueOf(createDto));
         return OrderDto.OrderCreateRes.valueOf(order);
     }

@@ -2,6 +2,7 @@ package com.study.yeseul.order.controller;
 
 import com.study.yeseul.order.service.OrderService;
 import com.study.yeseul.order.vo.OrderDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
+@Slf4j
 public class OrderController {
 
     @Autowired
@@ -23,6 +25,7 @@ public class OrderController {
     // 주문 생성
     @PostMapping("")
     public OrderDto.OrderCreateRes createOrder(@RequestBody final OrderDto.OrderCreateReq createDto) {
+        log.info(">>> 입력값 : {}", createDto);
         OrderDto.OrderCreateRes orderCreateRes = orderService.createOrder(createDto);
         return orderCreateRes;
     }

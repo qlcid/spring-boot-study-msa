@@ -5,6 +5,7 @@ import com.study.yeseul.product.service.ProductService;
 import com.study.yeseul.product.vo.ProductDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/products")
 @Api(tags = "상품 APIs")
+@Slf4j
 public class ProductController {
 
     // spring 생성자 주입하는 방법이
@@ -53,6 +55,7 @@ public class ProductController {
     public ProductDto.ProductDetailDto updateProduct(@PathVariable("id") final long id,
                                                      @RequestBody final ProductDto.ProductUpdateDto updateDto
     ) {
+        log.info(">>> 입력값 : {}", id);
         return productService.updateProduct(id, updateDto);
     }
 
@@ -60,6 +63,7 @@ public class ProductController {
     @PostMapping("/{id}/orders")
     public ProductDto.ProductOrderRes createProductOrders(@PathVariable("id") final long id,
                                                           @RequestBody ProductDto.ProductOrderReq productOrderReq) {
+        log.info(">>> 입력값 : {}", id);
         return productService.createProductOrders(id, productOrderReq);
     }
 
