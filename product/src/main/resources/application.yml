@@ -2,6 +2,8 @@ server:
   port: 1000
 
 spring:
+  application:
+    name: product
   datasource:
     url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     username: root
@@ -30,3 +32,15 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 1000 # default 1000
+
+order:
+  ribbon:
+      MaxAutoRetries: 0
+      MaxAutoRetriesNextServer: 1 # 실패시 다른 서버로 재시도하는 횟수
+
+eureka:
+  instance:
+    prefer-ip-address: true # OS에서 제공하는 hostname 대신 자신의 ip address를 사용 (local 용)
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka

@@ -63,7 +63,7 @@ public class ProductController {
     @PostMapping("/{id}/orders")
     public ProductDto.ProductOrderRes createProductOrders(@PathVariable("id") final long id,
                                                           @RequestBody ProductDto.ProductOrderReq productOrderReq) {
-        log.info(">>> 입력값 : {}", id);
+        log.info(">>> 1. 입력값 : {}", id);
         return productService.createProductOrders(id, productOrderReq);
     }
 

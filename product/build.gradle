@@ -48,6 +48,12 @@ dependencies {
     // hystrix
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix'
 
+    // ribbon
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-ribbon'
+
+    // Eureka
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:2.1.2.RELEASE")
+
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

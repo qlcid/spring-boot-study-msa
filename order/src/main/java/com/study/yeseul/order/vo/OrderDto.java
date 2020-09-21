@@ -1,16 +1,14 @@
 package com.study.yeseul.order.vo;
 
 import com.study.yeseul.order.domain.Order;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.ZonedDateTime;
 
 public class OrderDto {
 
     @Getter
+    @ToString
     public static class OrderCreateReq {
         private long productId;
         private String userName;

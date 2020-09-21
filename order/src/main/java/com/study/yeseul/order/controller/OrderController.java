@@ -25,7 +25,7 @@ public class OrderController {
     // 주문 생성
     @PostMapping("")
     public OrderDto.OrderCreateRes createOrder(@RequestBody final OrderDto.OrderCreateReq createDto) {
-        log.info(">>> 입력값 : {}", createDto);
+        log.info(">>> 4. 주문 생성(2000번) : {}", createDto);
         OrderDto.OrderCreateRes orderCreateRes = orderService.createOrder(createDto);
         return orderCreateRes;
     }
